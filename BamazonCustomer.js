@@ -3,7 +3,6 @@ var inquirer = require('inquirer');
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
-
 //1.set up connection to db
 var connection = mysql.createConnection({
     host: "localhost",
@@ -13,15 +12,11 @@ var connection = mysql.createConnection({
     database: "Bamazon"
 });
 
-
-
 //2.connect to db
 connection.connect(function(err) {
     if (err) throw err; //if problem with connection, throw error
     console.log("connected as id " + connection.threadId); //if not, print connection details
 });
-
-
 
 //3.get list of products from db so we can display them to the user
 connection.query('SELECT * FROM `Products` LIMIT 15', function(err, results) { 
@@ -34,7 +29,6 @@ connection.query('SELECT * FROM `Products` LIMIT 15', function(err, results) {
     console.log("-------------------------------------------------------------------") //seperator
     start();//kick start user interaction (prompts etc)
 });
-
 
 //4.provide prompts so user can select what they want to buy
 var start = function() { 
@@ -58,7 +52,9 @@ var start = function() {
             connection.query('SELECT * FROM Products WHERE id =' + idEntered, function(err, response) { 
 
                 if (err) throw err; //if problem with results from db, throw error
+ 
                 console.log(response[0].ProductName); //test to make sure data correlates, shows user product name if the id they seletced
+                
 //7.determine if we have user selection in stock      
                 compare(response, quantityEntered); 
             }); //end connection query 
