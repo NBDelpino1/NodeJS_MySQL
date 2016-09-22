@@ -50,11 +50,9 @@ var start = function() {
             
 //6.query user selection in db
             connection.query('SELECT * FROM Products WHERE id =' + idEntered, function(err, response) { 
-
                 if (err) throw err; //if problem with results from db, throw error
- 
                 console.log(response[0].ProductName); //test to make sure data correlates, shows user product name if the id they seletced
-                
+
 //7.determine if we have user selection in stock      
                 compare(response, quantityEntered); 
             }); //end connection query 
